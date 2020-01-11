@@ -1,2 +1,2 @@
 @echo off
-cat testfile.txt | .\dist\calc.exe
+cat testfile.txt | .\dist\rel.exe
