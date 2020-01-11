@@ -23,7 +23,7 @@
 int filter( FILE *input, FILE *output )
 {
     int emptylines = 0;
-    
+    char retcontent[1000];
     char buffer[5000], *fp;
     
     while ( !feof( input ) ) {
@@ -37,12 +37,10 @@ int filter( FILE *input, FILE *output )
         // Skip whitespace
         while (*fp == ' ' || *fp == '\t') fp++;
         if (*fp == '\r') fp++;
-        if (*fp == '\n') emptylines++;
+        if (*fp != '\n') {
+          fputs(buffer, output);
+        }
     }
-    char retcontent[1000];
-    sprintf(retcontent, "%d", emptylines);
-    fputs(retcontent, output);
-    
     return 0;
 }
 
