@@ -1,0 +1,6 @@
+Hello world
+
+This file contains words, spaces and empty rows
+
+
+Have fun coding!

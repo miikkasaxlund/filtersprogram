@@ -1,0 +1,15 @@
+{
+  "name": "swafilters",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test",
+    "build": "gulp build"
+  },
+  "author": "Miikka Saxlund",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
