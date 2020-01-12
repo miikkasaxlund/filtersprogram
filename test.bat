@@ -1,2 +1,2 @@
 @echo off
-cat testfile.txt | .\dist\rcb.exe
+cat testfile.txt | .\dist\rws.exe
