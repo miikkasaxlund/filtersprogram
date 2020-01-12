@@ -1,6 +1,10 @@
 Hello world
 
-This file contains words, spaces and empty rows
+This file contains words, spaces, comments and empty rows
 
+moikka // This is a one line comment
 
+/*
+ This is a comment block
+*/
 Have fun coding!
