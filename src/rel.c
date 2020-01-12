@@ -15,16 +15,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-/*
- * 
- */
 
+/*
+ * A filter program to remove empty lines from the input
+ */
 
 int filter( FILE *input, FILE *output )
 {
     int emptylines = 0;
-    char retcontent[1000];
     char buffer[5000], *fp;
+
+    fseek(input, 0L, SEEK_END); 
+    const int size = ftell(input); 
+    char* retcontent;
+    retcontent = (char *)malloc(size * sizeof(int));
     
     while ( !feof( input ) ) {
         if ( ferror( input ) ) {
