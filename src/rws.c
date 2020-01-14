@@ -17,7 +17,7 @@
 #include <ctype.h>
 
 /*
- * A filter program to remove white space
+ * A filter program to remove whitespace
  */
 
 int filter( FILE *input, FILE *output )
