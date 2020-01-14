@@ -83,7 +83,7 @@ int calculate( FILE *input, FILE *output )
 }
 
 /*
- * @brief Main program
+ * @brief Main function
  * 
  * Reads stdin, calculates parameters from the stream, and outputs
  * the calculations to the stdout stream
