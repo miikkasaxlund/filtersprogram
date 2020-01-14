@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 /*
  * A filter program to remove comment blocks from the input
@@ -22,16 +23,8 @@
 
 int filter( FILE *input, FILE *output )
 {
-    int emptylines = 0;
-    char buffer[5000], *fp;
-
-    fseek(input, 0L, SEEK_END); 
-    const int size = ftell(input); 
-    char* retcontent;
-    retcontent = (char *)malloc(size * sizeof(int));
-    char ch, nextch;
-
-    fpos_t position;
+    char buffer[5000], *fp, ch, prevch;
+    bool endFound = false;
 
     while ( !feof( input ) ) {
         if ( ferror( input ) ) {
@@ -39,20 +32,39 @@ int filter( FILE *input, FILE *output )
         }
         // Do stuff here:
         ch = fgetc(input);
-        nextch = fgetc(input);
+        prevch = ch;
+        //nextch = fgetc(input);
 
         // Check for a slash
-        if (ch == '/' && nextch == '*') {
-          while (ch != '*' && nextch != '/') {
-            ch = fgetc(input);
-            nextch = fgetc(input);
+        if (ch == '/') {
+          ch = fgetc(input);
+          if (ch == '*') {
+            while (!endFound) {
+              ch = fgetc(input);
+              if (ch == '*') {
+                ch = fgetc(input);
+                if (ch == '/') {
+                  endFound = true;
+                  do {
+                    ch = fgetc(input);
+                  } while (ch != '\n');
+                  ch = fgetc(input);
+                }
+              } else if (ch == '\0') {
+                endFound = true;
+                do {
+                  ch = fgetc(input);
+                } while (ch != '\n');
+                ch = fgetc(input);
+              }
+            }
           }
-          while (ch != '\n') {
-            ch = fgetc(input);
+          else {
+            fputc(prevch, output);
           }
-        } else {
+        } 
+        if (!feof( input )) {
           fputc(ch, output);
-          fputc(nextch, output);
         }
     }
     return 0;
