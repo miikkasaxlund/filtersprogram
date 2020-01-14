@@ -22,11 +22,8 @@
 
 int filter( FILE *input, FILE *output )
 {
-    /* 
-     * Define the buffer (max-length 5000 characters), 
-     * buffer pointer and character variables
-     */
-    char buffer[5000], *fp, ch, prevch;
+    // Define the essential variables
+    char ch, prevch;
 
     // Loop through the stream until the end-of-file indicator
     while ( !feof( input ) ) {
