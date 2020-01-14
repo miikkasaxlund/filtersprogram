@@ -22,22 +22,29 @@
 
 int filter( FILE *input, FILE *output )
 {
-    char ch;
-    char nextch;
+    char ch, prevch;
     while ( !feof( input ) ) {
         if ( ferror( input ) ) {
             return 1;
         }
         // Do stuff here:
         ch = fgetc(input);
-        nextch = fgetc(input);
-        // Check for a whitespace
-        if (ch == ' ' | ch == '\t' && nextch == ' ' | nextch == '\t') {
-          while (nextch == ' ' | nextch == '\t') nextch = fgetc(input);
+        prevch = ch;
+
+        if (ch == ' ' || ch == '\t') {
+          ch = fgetc(input);
+          if (ch == ' ' || ch == '\t') {
+            do {
+              ch = fgetc(input);
+            } while (ch == ' ' || ch == '\t');
+            fputc(prevch, output);
+          }
+          else {
+            fputc(prevch, output);
+          }
         }
         if (!feof( input )){
           fputc(ch, output);
-          fputc(nextch, output);
         }
     }
     return 0;
