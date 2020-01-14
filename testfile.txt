@@ -4,6 +4,9 @@ This file contains words, spaces, comments and empty rows
 
 moikka // This is a one line comment
 
+This row has trailing whitespace
+This row has  consecutive    whitespace
+
 /*
  This is a comment block
 */
