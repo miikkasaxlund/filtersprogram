@@ -30,7 +30,7 @@ int filter( FILE *input, FILE *output )
         // Do stuff here:
         ch = fgetc(input);
         // Check for a whitespace
-        if (ch != ' ') {
+        if (!isspace(ch) && !feof( input )) {
           fputc(ch, output);
         }
     }
