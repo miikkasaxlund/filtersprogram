@@ -23,7 +23,7 @@
 int filter( FILE *input, FILE *output )
 {
     int emptylines = 0;
-    char buffer[5000], temp[5000], *fp;
+    char buffer[5000], *fp;
 
     while ( !feof( input ) ) {
         if ( ferror( input ) ) {
@@ -31,12 +31,9 @@ int filter( FILE *input, FILE *output )
         }
         // Do stuff here:
         fgets(buffer, 5000, input);
-        fp = buffer;
-        
+    
         char *end;
-
         end = buffer + (strlen(buffer) - 1);
-
         int count = 0;
 
         while (end > buffer && isspace(*end)) {
