@@ -40,11 +40,11 @@ int filter( FILE *input, FILE *output )
          */
         ch = fgetc(input);
         /* 
-         * Check that a whitespace character or an 
-         * end-of-file indicator is not found and
+         * Check that spaces, tab characters or an 
+         * end-of-file indicators are not found and
          * write the character to the output stream
          */
-        if (!isspace(ch) && !feof( input )) {
+        if (ch != ' ' || ch != '\t' && !feof( input )) {
           fputc(ch, output);
         }
     }
