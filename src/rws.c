@@ -44,7 +44,7 @@ int filter( FILE *input, FILE *output )
          * end-of-file indicators are not found and
          * write the character to the output stream
          */
-        if (ch != ' ' || ch != '\t' && !feof( input )) {
+        if (ch != ' ' && ch != '\t' && !feof( input )) {
           fputc(ch, output);
         }
     }
