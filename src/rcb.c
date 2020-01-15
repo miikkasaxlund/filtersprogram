@@ -70,10 +70,10 @@ int filter( FILE *input, FILE *output )
                    */
                   endFound = true;
                   /*
-                   * Advance in the stream until new-line
-                   * character is found so that the remaining
-                   * parts of the multi-line comment is not
-                   * written to the output stream
+                   * Advance in the stream as long as a 
+                   * whitespace character that is not a 
+                   * new-line character is found to get
+                   * rid of whitespace after the comment
                    */
                   do {
                     ch = fgetc(input);
@@ -83,6 +83,8 @@ int filter( FILE *input, FILE *output )
                 }
               }
             }
+            // Set the endFound back to its original state
+            endFound = false;
           }
           /* 
            * If only one slash character was found, write
