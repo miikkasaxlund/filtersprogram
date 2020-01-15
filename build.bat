@@ -1,6 +1,6 @@
 @echo off
-gcc -o ./dist/calc ./src/calc.c
-echo calc.exe built succesfully
+gcc -o ./dist/calcf ./src/calcf.c
+echo calcf.exe built succesfully
 gcc -o ./dist/rel ./src/rel.c
 echo rel.exe built succesfully
 gcc -o ./dist/rc ./src/rc.c
