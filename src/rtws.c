@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
- * File:   main.c
- * Author: miikk
+ * File:   rtws.c
+ * Author: Miikka Saxlund
+ * Brief: A filter program to remove trailing whitespace
  *
  * Created on 03 January 2020, 14:50
  */
@@ -17,45 +12,80 @@
 #include <ctype.h>
 
 /*
- * A filter program to remove trailing whitespace
+ * @brief Filter function
+ * 
+ * Filters whitespace from the stream
+ * 
+ * @param input a pointer to the standard input stream
+ * @param output a pointer to the standard output stream
  */
 
 int filter( FILE *input, FILE *output )
 {
-    int emptylines = 0;
-    char buffer[5000], *fp;
+    // Define the buffer and line end pointer variables
+    char buffer[5000], *end;
+    /*
+     * Define an int for counting the trailing whitespace
+     * characters
+     */
+    int count = 0;
 
+    // Loop through the stream until the end-of-file indicator
     while ( !feof( input ) ) {
+        // Return in case of occurring error indicator
         if ( ferror( input ) ) {
             return 1;
         }
-        // Do stuff here:
+        /*
+         * Read a line from the input stream and store it into
+         * the defined buffer
+         */
         fgets(buffer, 5000, input);
-    
-        char *end;
+        // Make the line end pointer point to the end of the buffer
         end = buffer + (strlen(buffer) - 1);
-        int count = 0;
-
+        /*
+         * Loop the buffer from the end towards the beginning
+         * while checking for whitespace characters and
+         * counting the whitespace characters found
+         */
         while (end > buffer && isspace(*end)) {
           end--;
           count++;
         }
+        /*
+         * If more than one whitespace character was found,
+         * we can determine that we're not handling a line
+         * that contains only the new-line character.
+         * 
+         * If so, add the newline character, carriage return
+         * and a null terminator to the end of the buffer to
+         * cut out the trailing whitespace
+         */
         if (count > 1) {
           *(end + 1) = '\n';
           *(end + 2) = '\r';
           *(end + 3) = '\0';
         }
-        
+        // Write the buffer to the output stream
         fputs(buffer, output);
-
     }
     return 0;
 }
 
+/*
+ * @brief Main function
+ * 
+ * Passes the stdin stream to the filter function to be filtered
+ * and flushes the output buffer so it can be outputted to the
+ * stdout output stream
+ */
+
 int main(void)
 {
+    // Get the return value from the filter function
     const int retval = filter( stdin, stdout );
     // Flush the output buffer and move the buffered data to console
     fflush( stdout );
+    // Return the return value
     return retval;
 }

@@ -93,7 +93,7 @@ int filter( FILE *input, FILE *output )
           }
         }
         /*
-         * Check that the end of-file-indicator is not found
+         * Check that the end-of-file indicator is not found
          * and write the character to the output stream
          */
         if (!feof( input )) {
